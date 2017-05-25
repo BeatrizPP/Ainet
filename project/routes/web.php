@@ -24,13 +24,15 @@ Route::get('/', [
     'as' => 'main'
 ]);
 
+Route::get('/home', 'RouteController@mainView')->name('home');
+
 Route::get('/contacts', [
-    'uses' => 'RouteController@contactsView',
+    'uses' => 'UserController@index',
     'as' => 'contacts'
 ]);
 
-Route::get('/profile-page', [
-    'uses' => 'RouteController@profilePageView',
+Route::get('/profile-page/{user}', [
+    'uses' => 'UserController@show',
     'as' => 'profilePage'
 ]);
 
@@ -39,13 +41,27 @@ Route::get('/personal-profile', [
     'as' => 'personalProfile'
 ]);
 
-Route::get('/request-description', [
-    'uses' => 'RouteController@requestDescriptionView',
+Route::get('/create-profile', [
+    'uses' => 'RegistrationController@create',
+    'as' => 'createProfile'
+]);
+
+Route::post('/create-profile', 'RegistrationController@store');
+
+Route::get('/login', 'SessionController@create');
+
+Route::post('/login', 'SessionController@store');
+
+Route::get('/logout', 'SessionController@destroy');
+
+
+Route::get('/request-description/{printRequest}', [
+    'uses' => 'PrintRequestController@show',
     'as' => 'requestDescription'
 ]);
 
 Route::get('/personal-requests', [
-    'uses' => 'RouteController@listRequestsView',
+    'uses' => 'PrintRequestController@currentUserIndex',
     'as' => 'personalRequests'
 ]);
 
@@ -59,7 +75,14 @@ Route::get('/request-create-edit', [
     'as' => 'requestCreateEdit'
 ]);
 
-Route::get('/list-all-requests', [
-    'uses' => 'RouteController@allRequestsView',
+Route::get('/request-create', [
+    'uses' => 'PrintRequestController@create',
+    'as' => 'requestCreate'
+]);
+
+Route::post('/request-create', 'PrintRequestController@store');
+
+Route::get('/list-all-requests',[
+    'uses' => 'PrintRequestController@index',
     'as' => 'listAllRequests'
 ]);

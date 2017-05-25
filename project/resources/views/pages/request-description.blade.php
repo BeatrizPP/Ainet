@@ -1,11 +1,7 @@
 @extends('layouts.master')
 
 @section('navigation')
-    @if(Auth::check())
-        @include('layouts.partials.navigation.logged_in._navigation_list_all_requests')
-    @else
-        @include('layouts.partials.navigation.logged_out._navigation_logged_out_list_all_requests')
-    @endif
+    @include('layouts.partials.navigation.logged_in._navigation_list_all_requests')
 @endsection
 
 @section('header')
@@ -14,16 +10,76 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        Request Info <small>some subtitle</small>
+                        Request Description <small>some subtitle</small>
                     </h1>
                 </div>
             </div>
 @endsection
 
+
+
 @section('content')
 
+    <p>
+        Id:
+        {{$printRequest->id}}
+    </p>
 
-    Request Description
+    <p>
+        Status:
+        {{$printRequest->status}}
+    </p>
+
+    <p>
+        Description:
+        {{$printRequest->description}}
+    </p>
+
+    <p>
+        Due Date:
+        {{$printRequest->due_date}}
+    </p>
+
+    <p>
+        Quantity:
+        {{$printRequest->quantity}}
+    </p>
+
+    <p>
+        Paper Size:
+        A{{$printRequest->paper_size}}
+    </p>
+
+    <p>
+        Paper Type:
+        {{$printRequest->paper_type}}
+    </p>
+
+    <p>
+        Owner Id:
+        {{$printRequest->owner_id}}
+    </p>
+
+    <p>
+        Due Date:
+        {{$printRequest->due_date}}
+    </p>
+
+    <p>
+        Colored:
+        {{$printRequest->colored}}
+    </p>
+
+    <p>
+        Stapled:
+        {{$printRequest->stapled}}
+    </p>
+
+
+
+
+
+
+
 
 @endsection
-

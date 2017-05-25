@@ -24,4 +24,11 @@
 
     User Profile
 
+    <p>
+        {{ $user->id }}
+    </p>
+    <p>
+        {{ $user->name }}
+    </p>
+
 @endsection

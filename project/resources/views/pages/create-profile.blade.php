@@ -38,17 +38,22 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name">
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation">Password Confirmation:</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
                 </div>
 
 {{--                <div class="form-group">
@@ -62,8 +67,8 @@
                 </div>--}}
 
                 <div class="form-group">
-                    <label for="department"><p>Department</p></label>
-                    <select class="form-control" id="department" name="department">
+                    <label for="department_id"><p>Department</p></label>
+                    <select class="form-control" id="department_id" name="department_id">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -90,7 +95,14 @@
                 </div>--}}
                 <br>
                 {{--<a href="#" class="btn btn-default" role="button">Cancel</a>--}}
-                <button type="submit" class="btn btn-default"> Register</button>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-default"> Register</button>
+                </div>
+
+                @if (! $errors->has('login_message'))
+                    @include('layouts.partials.errors')
+                @endif
 
             </div>
         </form>

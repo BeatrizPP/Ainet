@@ -12,16 +12,16 @@
     <title>Projeto Ainet</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://project.ainet/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="http://project.ainet/css/sb-admin.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
+    <link href="http://project.ainet/css/plugins/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://project.ainet/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- links to fonts?-->
 
@@ -34,6 +34,12 @@
     </head>
 
     <body id="page-top" class="index">
+
+        @if(Auth::check())
+            @include('layouts.partials._top_bar_logged_in')
+        @else
+            @include('layouts.partials._top_bar_logged_out')
+        @endif
 
         @yield('navigation')
 
