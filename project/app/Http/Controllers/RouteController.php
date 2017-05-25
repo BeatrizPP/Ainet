@@ -16,6 +16,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\PrintRequest;
+use App\Department;
 
 class RouteController extends BaseController
 {
@@ -23,8 +24,8 @@ class RouteController extends BaseController
 
     public function mainView(){
         $totalPrints = User::sum('print_counts');
-        $totalRequestsPrinted = Request::where('status', '=', '1')->count('colored');
-        $totalRequestsColored = Request::where('status', '=', '1')->where('colored', true)->count('colored');
+        $totalRequestsPrinted = PrintRequest::where('status', '=', '1')->count('colored');
+        $totalRequestsColored = PrintRequest::where('status', '=', '1')->where('colored', true)->count('colored');
         if ($totalRequestsPrinted == 0) {
             $percentageColored = 0;
         } else {
@@ -32,8 +33,8 @@ class RouteController extends BaseController
         }
         $departments = Department::get();
         $printsPerDepartment = User::selectRaw('sum(print_counts) as sum, department_id')->groupby('department_id')->get();  //I know, I hoped I wouldn't use raw, but is how I made it work
-        $today = Request::where('status', '=', '1')->whereDay('closed_date', date('d')) ->count();
-        $month = Request::where('status', '=', '1')->whereMonth('closed_date', date('m')) ->count();
+        $today = PrintRequest::where('status', '=', '1')->whereDay('closed_date', date('d')) ->count();
+        $month = PrintRequest::where('status', '=', '1')->whereMonth('closed_date', date('m')) ->count();
         $contacts = User::get();
 
         return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts'));
