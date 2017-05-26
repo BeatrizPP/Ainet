@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                         Home <small>Statistics Overview</small>
+                        Home <small>Statistics Overview</small>
                     </h1>
                 </div>
             </div>
@@ -24,29 +24,29 @@
 
     <p>Total prints: {{$totalPrints}}</p>
     <p>Percentage of colored prints: {{$percentageColored}} %</p>
-    <p>prints by department: 
-        <table>
+    <p>prints by department:
+    <table>
         @foreach ($departments as $department)
             <tr>
                 <td>
-                <a href="{{ URL::route('mainByDepartment', $department->id) }}">{{$department->name}}</a>
+                    <a href="{{ URL::route('mainByDepartment', $department->id) }}">{{$department->name}}</a>
                 </td>
-                <?php   $hasUsers = false;  ?>  <!--(FIXED) if the user list doesn't have a department he doesn't write-->
+            <?php   $hasUsers = false;  ?>  <!--(FIXED) if the user list doesn't have a department he doesn't write-->
                 @foreach ($printsPerDepartment as $prints)
                     @if ($prints->department_id == $department->id)
-                        <td> 
-                        {{$prints->sum}}
-                        <?php   $hasUsers = true; ?>
+                        <td>
+                            {{$prints->sum}}
+                            <?php   $hasUsers = true; ?>
                         </td>
                     @endif
                 @endforeach
-                @if (!$hasUsers) 
-                        <td> 0 </td>
-                        <?php   $hasUsers = false;  ?>
-                    @endif
-            </tr> 
+                @if (!$hasUsers)
+                    <td> 0 </td>
+                    <?php   $hasUsers = false;  ?>
+                @endif
+            </tr>
         @endforeach
-        </table>
+    </table>
     </p>
     @if ($isDepSelected)
         <p>Total Prints by Department: {{$sumPrintsPerDepartment}}</p>
@@ -79,12 +79,12 @@
             <tr>
                 <td>
                     @if ($contact->profile_photo == null)
-                        
+
                         <img src="/profiles/no-profile-image.jpg" style="width:60px; height: 60px;">
                         <!-- also would work with the migration of using this image as default-->
                     @else
                         <img src="/profiles/{{ $contact->profile_photo }}" style="width:60px; height: 60px;">
-                    @endif           
+                    @endif
                 </td>
                 <td>
                     {{$contact->name}}

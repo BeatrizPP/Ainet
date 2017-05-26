@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\PrintRequest;
 use App\Department;
+
 class RouteController extends BaseController
 {
     use ValidatesRequests;
@@ -69,7 +71,7 @@ class RouteController extends BaseController
         $depToday = 0;
         $depMonth = 0;
         foreach ($requests as $request) {
-            if($request->status == 2){ 
+            if($request->status == 2){
                 $depTotalCounter++;
                 if($request->colored == 1){
                     $depColoredCounter++;
@@ -86,7 +88,7 @@ class RouteController extends BaseController
                 }
             }
         }
-        
+
         if ($depTotalCounter == 0) {
             $percColoredByDepartment = 0;
         } else {
@@ -97,29 +99,8 @@ class RouteController extends BaseController
         return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'depName', 'sumPrintsPerDepartment', 'percColoredByDepartment', 'depToday', 'depMonth', 'isDepSelected'));
     }
 
-    public function contactsView(){
-
-        $users = User::get();
-
-        return view('contacts',compact('users'));
-    }
-
-    public function profilePageView(){
-        return view('profile-page');
-    }
-
     public function editProfileView(){
         return view('edit-create-profile');
-    }
-
-    public function requestDescriptionView(){
-        if (Auth::check())
-        {
-            return view('request-description');
-        }
-        else{
-            return redirect()->route('main');
-        }
     }
 
     public function listRequestsView()
@@ -148,15 +129,6 @@ class RouteController extends BaseController
             return redirect()->route('main');
         }
     }
-
-    public function allRequestsView(){
-
-        $requests = Request::get();
-
-        return view('list-of-all-requests',compact('requests'));
-
-    }
-
 
 
 }

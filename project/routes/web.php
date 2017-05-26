@@ -27,6 +27,7 @@ Route::get('/', [
 Route::get('/home', 'RouteController@mainView')->name('home');
 
 Route::get('/contacts', [
+    'uses' => 'UserController@index',
     'as' => 'contacts'
 ]);
 
