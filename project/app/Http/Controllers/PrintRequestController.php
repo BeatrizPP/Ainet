@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use App\PrintRequest;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +19,9 @@ class PrintRequestController extends Controller
     {
         if (Auth::check()) {
             $printRequests = PrintRequest::all();
-            return view('list-of-all-requests', compact('printRequests'));
+            $departments = Department::all();
+            $users = User::all();
+            return view('list-of-all-requests', compact('printRequests','departments','users'));
         } else {
             return redirect()->route('main');
         }

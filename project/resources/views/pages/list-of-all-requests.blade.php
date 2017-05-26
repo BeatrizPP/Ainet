@@ -26,7 +26,7 @@
                     <div data-toggle="collapse" data-target="#request-filters">
                         <h4>Filter by: <i class="fa fa-fw fa-caret-down" style="float: right"></i></h4>
                     </div>
-                    <form method="GET">
+                    <form method="GET" action="#">
 
                         <div id="request-filters" class="collapse">
 
@@ -43,23 +43,19 @@
                             <div class="form-group">
                                 <label>Owner:</label>
                                 <select class="form-control">
-                                    <option>All</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    <option>------------------------</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user -> id }}">{{ $user -> name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Department:</label>
                                 <select multiple class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                    @foreach($departments as $department)
+                                        <option value="{{ $department -> id }}">{{ $department -> name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -96,7 +92,7 @@
                                     <th>Request Id</th>
                                     <th>Status</th>
                                     <th>Due Date</th>
-                                    <th>Owner Id</th>
+                                    <th>Owner</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -113,7 +109,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $request->due_date }}</td>
-                                    <td>{{ $request->owner_id }}</td>
+                                    <td>{{ $request->owner->name }}</td>
                                 </tr>
 
                                 @endforeach

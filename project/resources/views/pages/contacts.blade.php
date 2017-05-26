@@ -26,9 +26,8 @@
                 <ul>
                     @foreach($users as $user)
 
-                        <li> {{ $user->name }}
+                        <li><a href="/profile-page/{{$user->id}}"> {{ $user->name }} </a>
                             <ul>
-
                                 <li> Email: {{ $user->email }} </li>
 
                                 @if($user->phone != null)

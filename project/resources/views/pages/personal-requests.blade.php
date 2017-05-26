@@ -29,7 +29,7 @@
                                     <th>Request Id</th>
                                     <th>Status</th>
                                     <th>Due Date</th>
-                                    <th>Owner Id</th>
+                                    <th>Owner</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,7 +46,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $request->due_date }}</td>
-                                        <td>{{ $request->owner_id }}</td>
+                                        <td>{{ $request->owner->name }}</td>
                                     </tr>
 
                                 @endforeach

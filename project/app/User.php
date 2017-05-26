@@ -30,8 +30,22 @@ class User extends Authenticatable
 
     public function printRequests()
     {
-        return $this->hasMany(PrintRequest::class);
+        return $this->hasMany(PrintRequest::class,'id','owner_id');
     }
 
+    public function closedRequests()
+    {
+        return $this->hasMany(PrintRequest::class,'id','closed_user_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,'id','user_id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class,'department_id');
+    }
 
 }
