@@ -27,7 +27,6 @@ Route::get('/', [
 Route::get('/home', 'RouteController@mainView')->name('home');
 
 Route::get('/contacts', [
-    'uses' => 'UserController@index',
     'as' => 'contacts'
 ]);
 
@@ -85,4 +84,9 @@ Route::post('/request-create', 'PrintRequestController@store');
 Route::get('/list-all-requests',[
     'uses' => 'PrintRequestController@index',
     'as' => 'listAllRequests'
+]);
+
+Route::get('/{depID}', [
+    'uses' => 'RouteController@mainViewByDepartment',
+    'as' => 'mainByDepartment'
 ]);
