@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\PrintRequest;
 use App\Department;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordReset;
 
 class RouteController extends BaseController
 {
     use ValidatesRequests;
 
     public function mainView(){
-        $totalPrints = User::sum('print_counts');
+/*        $totalPrints = User::sum('print_counts');
         $totalRequestsPrinted = PrintRequest::where('status', '=', '2')->count('colored');
         $totalRequestsColored = PrintRequest::where('status', '=', '2')->where('colored', true)->count('colored');
         if ($totalRequestsPrinted == 0) {
@@ -37,9 +39,11 @@ class RouteController extends BaseController
         $month = PrintRequest::where('status', '=', '2')->whereMonth('closed_date', date('m')) ->count();
         $contacts = User::get();
 
-        $isDepSelected = false;  //no department selected
+        $isDepSelected = false;  //no department selected*/
 
-        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected'));
+        //return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected'));
+
+        return view('empty');
     }
 
     public function mainViewByDepartment($depID) {

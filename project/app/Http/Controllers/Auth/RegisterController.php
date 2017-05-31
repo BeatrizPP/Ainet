@@ -34,6 +34,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -51,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'department_id' => 'required'
         ]);
     }
 
@@ -66,6 +68,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'department_id' => request('department_id'),
+            'remember_token' => str_random(10)
         ]);
+    }
+
+    public function verify($token){
+
+        User::where('remember_token',$token)->firstOrFail()->verified();
+
+
+        return redirect('/')->with('status','You are now verified');
     }
 }

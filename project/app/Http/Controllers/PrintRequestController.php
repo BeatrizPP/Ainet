@@ -50,19 +50,23 @@ class PrintRequestController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store()
     {
         // Validate the form
 
         $this->validate(request(), [
 
+            'file' => 'required',
+
+            'description' => 'required',
+
+            'due_date' => 'required',
+
             'quantity' => 'required',
 
             'paper_size' => 'required',
 
-            'paper_type' => 'required',
-
-            'file' => 'required'
+            'paper_type' => 'required'
 
         ]);
 
@@ -75,7 +79,7 @@ class PrintRequestController extends Controller
             'paper_size' => request('paper_size'),
             'paper_type' => request('paper_type'),
             'file' => request('file'),
-            'owner_id' => auth()->id()
+            'owner_id' => Auth::id()
         ]);
 
         // Redirect to user requests page

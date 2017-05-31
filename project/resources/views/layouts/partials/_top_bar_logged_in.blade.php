@@ -4,7 +4,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
 
-            <a class="navbar-brand" href="{{ URL::route('main') }}">Ainet Print Management</a>
+            <a class="navbar-brand" href="#{{ route('main') }}">Ainet Print Management</a>
         </div>
 
         <!-- Top Menu Items -->
@@ -20,7 +20,14 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                            <i class="fa fa-fw fa-power-off"></i>Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                 </ul>
             </li>

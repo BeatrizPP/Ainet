@@ -29,23 +29,29 @@ class RegistrationController extends Controller
         ]);
 
 
+
         // Create and save the user
 
         $user = User::create([
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
-            'department_id' => request('department_id')
+            'department_id' => request('department_id'),
+            'remember_token' => str_random(10)
         ]);
 
 
-        // Sign them in
-
-        auth()->login($user);
-
-
+        Mail::to(request('email'))->send(new Activation($user));
         // Redirect to the home page
 
-        return redirect('/');
+        return redirect('/')->with('status', 'We sent you an activation code. Check your email.');
+    }
+
+    public function verify($token){
+
+        User::where('remember_token',$token)->firstOrFail()->verified();
+
+
+        return redirect('/')->with('status','You are now verified');
     }
 }

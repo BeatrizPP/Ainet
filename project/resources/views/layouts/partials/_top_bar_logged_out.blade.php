@@ -4,11 +4,11 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
 
-            <a class="navbar-brand" href="{{ URL::route('main') }}">Ainet Print Management</a>
+            <a class="navbar-brand" href="{{ route('main') }}">Ainet Print Management</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
-            <li><a class="navbar-signup" href="{{ URL::route('createProfile') }}" style="font-size: 100%;"><i class="fa fa-fw fa-edit"></i>Sign up</a></li>
+            <li><a class="navbar-signup" href="{{ route('register') }}" style="font-size: 100%;"><i class="fa fa-fw fa-edit"></i>Sign up</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">@if(count($errors) && $errors->has('login_message'))<i class="fa fa-exclamation-triangle"></i>@endif  <i class="fa fa-user"></i> Log In <b class="caret"></b></a>
                 <ul class="dropdown-menu login-dropdown">
@@ -44,6 +44,6 @@
                     </form>
 
                         <li>
-                            <span class="psw">Forgot <a href="#">password?</a></span>
+                            <span class="psw">Forgot <a href="{{ route('password.request') }}">password</a>?</span>
                         </li>
                 </ul>

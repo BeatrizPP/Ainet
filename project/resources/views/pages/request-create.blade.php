@@ -86,8 +86,8 @@
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
-                        <label for="paper_size">Paper Type</label>
-                        <select class="form-control" id="paper_size" name="paper_size">
+                        <label for="paper_type">Paper Type</label>
+                        <select class="form-control" id="paper_type" name="paper_type">
                             <option value="0">Type 0</option>
                             <option value="1">Type 1</option>
                             <option value="2">Type 2</option>

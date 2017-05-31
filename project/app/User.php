@@ -48,4 +48,19 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class,'department_id');
     }
 
+    public function verified()
+    {
+        $this->activated = 1;
+        $this->save();
+    }
+
+    public function isAdmin()
+    {
+        if($this->admin==1){
+            return true;
+        }else{
+            return false;
+        }// this looks for an admin column in your users table
+    }
+
 }

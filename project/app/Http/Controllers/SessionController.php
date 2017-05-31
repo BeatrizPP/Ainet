@@ -20,18 +20,22 @@ class SessionController extends Controller
     public function store()
     {
 
-        // attempt to authenticate the user
+// attempt to authenticate the user
 
-        if (! auth()->attempt(request(['email', 'password'])))
+        if (auth()->attempt(['email' => request('email'), 'password' => request('password'), 'blocked' => 0, 'activated'=> 1]))
         {
+            return redirect()->home();
+        }
+        else {
             return back()->withErrors([
 
-                'login_message' => 'Invalid credentials. Please try again.'
+                'login_message' => 'One of the following occured:
+                                    - Your credentials are wrong
+                                    - You are not activated 
+                                    - You are blocked'
 
             ]);
         }
-
-        return redirect()->home();
     }
 
     public function destroy()
