@@ -2,9 +2,9 @@
 
 @extends('layouts.master')
 
-@section('navigation')
+{{--@section('navigation')
     @include('layouts.partials.navigation.logged_in._navigation_logged_in')
-@endsection
+@endsection--}}
 
 @section('header')
     <div id="page-wrapper">

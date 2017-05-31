@@ -9,6 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Projeto Ainet</title>
 
     <!-- Bootstrap Core CSS -->
@@ -35,17 +38,41 @@
 
     <body id="page-top" class="index">
 
+        <!-- top bar -->
         @if(Auth::check())
             @include('layouts.partials._top_bar_logged_in')
+        @elseif(Request::url() === route('register'))
+            @include('layouts.partials._top_bar_registration')
         @else
             @include('layouts.partials._top_bar_logged_out')
         @endif
 
-        @yield('navigation')
+        <!-- side bar navigation -->
+        @if(Auth::check())
+            @if(Request::url() === route('personalRequests'))
+                @include('layouts.partials.navigation.logged_in._navigation_personal_requests')
+            @elseif(Request::url() === route('listAllRequests'))
+                @include('layouts.partials.navigation.logged_in._navigation_list_all_requests')
+            @elseif(Request::url() === route('contacts'))
+                @include('layouts.partials.navigation.logged_in._navigation_contacts')
+            @elseif(Request::url() === route('main'))
+                @include('layouts.partials.navigation.logged_in._navigation_main')
+            @elseif(Request::url() === route('requestCreate'))
+                @include('layouts.partials.navigation.logged_in._navigation_create_request')
+            @else
+                @include('layouts.partials.navigation.logged_in._navigation_logged_in')
+            @endif
+        @else
+            @if(Request::url() === route('main'))
+                @include('layouts.partials.navigation.logged_out._navigation_logged_out_main')
+            @elseif(Request::url() === route('contacts'))
+                @include('layouts.partials.navigation.logged_out._navigation_logged_out_contacts')
+            @else
+                @include('layouts.partials.navigation.logged_out._navigation_logged_out')
+            @endif
+        @endif
 
         @yield('header')
-
-        {{--@include('layouts.partials._header')--}}
 
         @yield('content')
 

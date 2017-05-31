@@ -1,21 +1,8 @@
 
 @extends('layouts.master')
 
-@section('navigation')
-    @include('layouts.partials.navigation.logged_out._navigation_logged_out')
-@endsection
-
-
 @section('header')
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Reset Password
-                    </h1>
-                </div>
-            </div>
+    @include('layouts.partials._header', array('title'=>'Reset Password'))
 @endsection
 
 

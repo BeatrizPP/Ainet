@@ -1,19 +1,7 @@
 @extends('layouts.master')
 
-@section('navigation')
-    @include('layouts.partials.navigation.logged_in._navigation_list_all_requests')
-@endsection
-
 @section('header')
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Request Description <small>some subtitle</small>
-                    </h1>
-                </div>
-            </div>
+    @include('layouts.partials._header', array('title'=>'Request Description'))
 @endsection
 
 
