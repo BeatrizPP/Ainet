@@ -75,10 +75,11 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Request Id</th>
-                                    <th>Status</th>
-                                    <th>Due Date</th>
-                                    <th>Owner</th>
+                                    <th>Request Id <a href="{{ URL::route('listAllRequestsOrdered', '0')}}"> <i class="fa fa-arrow-down"></i></a> <a href="{{ URL::route('listAllRequestsOrdered', '1')}}"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Status <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Due Date <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Owner <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>+ Info</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -96,6 +97,7 @@
                                     </td>
                                     <td>{{ $request->due_date }}</td>
                                     <td>{{ $request->owner->name }}</td>
+                                    <td><a href="/request-description/{{ $request->id }}">View Details</a></td>
                                 </tr>
 
                                 @endforeach
@@ -103,6 +105,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="pagination"> {{ $printRequests->links() }} </div>
                     </div>
                 </div>
 

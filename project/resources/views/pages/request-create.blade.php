@@ -9,7 +9,7 @@
 
     <div id="request-form">
 
-        <form method="POST" action="/create-request">
+        <form method="POST" action="/request-create" enctype="multipart/form-data">
 
             {{ csrf_field() }}
 
@@ -59,7 +59,7 @@
                 <div class="col-lg-2">
                     <div class="form-group">
                         <label for="quantity">Quantity:</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity">
+                        <input type="number" min="1" class="form-control" id="quantity" name="quantity">
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -75,9 +75,9 @@
                     <div class="form-group">
                         <label for="paper_type">Paper Type</label>
                         <select class="form-control" id="paper_type" name="paper_type">
-                            <option value="0">Type 0</option>
-                            <option value="1">Type 1</option>
-                            <option value="2">Type 2</option>
+                            <option value="0">Draft</option>
+                            <option value="1">Regular</option>
+                            <option value="2">Photographic</option>
                         </select>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="col-lg-2">
                     <br>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default"> Submit Request</button>
+                        <button type="submit" class="btn btn-default"> <b>Submit Request</b></button>
                     </div>
                 </div>
             </div>

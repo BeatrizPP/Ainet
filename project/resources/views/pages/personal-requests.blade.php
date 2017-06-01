@@ -18,6 +18,8 @@
                                     <th>Status</th>
                                     <th>Due Date</th>
                                     <th>Owner</th>
+                                    <th>+ Info</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -35,6 +37,8 @@
                                         </td>
                                         <td>{{ $request->due_date }}</td>
                                         <td>{{ $request->owner->name }}</td>
+                                        <td><a href="/request-description/{{ $request->id }}">View Details</a></td>
+                                        <td><a href="#">Delete</a></td>
                                     </tr>
 
                                 @endforeach

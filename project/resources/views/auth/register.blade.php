@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+    <form class="form-horizontal" role="form" method="POST" action="/register">
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -78,9 +78,9 @@
 
 
         <div class="form-group">
-            <div class="col-md-6 col-md-offset-4">
-                <button type="submit" class="btn btn-primary">
-                    Register
+            <div class="col-md-2 col-md-offset-4">
+                <button type="submit" class="btn btn-default btn-block">
+                    <b>Register</b>
                 </button>
             </div>
         </div>

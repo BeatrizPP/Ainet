@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class PrintRequest extends Model
 {
     //
+    protected $fillable = ['status', 'due_date', 'description' ,'quantity',
+                            'paper_size', 'paper_type', 'file', 'closed_date',
+                            'refused_reason', 'satisfaction_grade', 'colored',
+                            'stapled', 'front_back', 'owner_id', 'printer_id','close_user_id'];
+
     protected $table = 'requests';
 
     public function owner()

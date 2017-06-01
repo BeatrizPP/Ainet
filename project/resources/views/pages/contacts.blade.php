@@ -7,23 +7,41 @@
 
 @section('content')
 
-                <ul>
+    {{--Show Contacts--}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>+ Info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
                     @foreach($users as $user)
 
-                        <li><a href="/profile-page/{{$user->id}}"> {{ $user->name }} </a>
-                            <ul>
-                                <li> Email: {{ $user->email }} </li>
-
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
                                 @if($user->phone != null)
-                                    <li>Phone: {{ $user->phone }}</li>
+                                    {{ $user->phone }}
                                 @endif
-
-                            </ul>
-                            <br>
-                        </li>
+                            </td>
+                            <td><a href="/profile-page/{{$user->id}}">View Details</a></td>
+                        </tr>
 
                     @endforeach
-                </ul>
 
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination"> {{ $users->links() }} </div>
+        </div>
+    </div>
 
 @endsection

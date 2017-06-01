@@ -29,7 +29,9 @@ Route::get('/request-create', 'PrintRequestController@create')->name('requestCre
 
 Route::post('/request-create', 'PrintRequestController@store');
 
-Route::get('/list-all-requests', 'PrintRequestController@index')->name('listAllRequests');
+Route::get('/list-all-requests/', 'PrintRequestController@index')->name('listAllRequests');
+
+Route::get('/list-all-requests/{orderCode}', 'PrintRequestController@indexOrdered')->name('listAllRequestsOrdered');
 
 Route::get('/stats/{depID}', 'RouteController@mainViewByDepartment')->name('mainByDepartment');
 
