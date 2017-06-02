@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PrintRequestController extends Controller
 {
@@ -51,10 +52,16 @@ class PrintRequestController extends Controller
                     $printRequests = PrintRequest::orderBy('due_date', 'desc')->paginate(20);
                     break;
                 case 6:
-                    $printRequests = PrintRequest::orderBy('owner_id', 'asc')->paginate(20);
+                    $printRequests = PrintRequest::select(DB::raw('requests.*'))
+                        ->leftJoin(DB::raw('(select id,name from users) as users'), 'users.id', '=', 'requests.owner_id')
+                        ->orderBy('name', 'asc')
+                        ->paginate(20);
                     break;
                 case 7:
-                    $printRequests = PrintRequest::orderBy('owner_id', 'desc')->paginate(20);
+                    $printRequests = PrintRequest::select(DB::raw('requests.*'))
+                        ->leftJoin(DB::raw('(select id,name from users) as users'), 'users.id', '=', 'requests.owner_id')
+                        ->orderBy('name', 'desc')
+                        ->paginate(20);
                     break;
             }
             $departments = Department::all();

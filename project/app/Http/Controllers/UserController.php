@@ -15,7 +15,21 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::paginate(15);
+
+        return view('contacts', compact('users'));
+    }
+
+    public function indexOrdered($orderCode)
+    {
+        switch ($orderCode){
+            case 0:
+                $users = User::orderby('name','asc')->paginate(15);
+                break;
+            case 1:
+                $users = User::orderby('name','desc')->paginate(15);
+                break;
+        }
 
         return view('contacts', compact('users'));
     }

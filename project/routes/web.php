@@ -15,6 +15,8 @@ Route::get('/', 'RouteController@mainView')->name('main');
 
 Route::get('/contacts', 'UserController@index')->name('contacts');
 
+Route::get('/contacts/{orderCode}', 'UserController@indexOrdered')->name('contactsOrdered');
+
 Route::get('/profile-page/{user}', 'UserController@show')->name('profilePage');
 
 Route::get('/personal-profile', 'RouteController@editProfileView')->name('personalProfile');

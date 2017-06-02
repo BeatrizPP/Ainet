@@ -14,7 +14,8 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Name <a href="{{ URL::route('contactsOrdered', '0')}}"> <i class="fa fa-arrow-down"></i></a>
+                            <a href="{{ URL::route('contactsOrdered', '1')}}"><i class="fa fa-arrow-up"></i></a></th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>+ Info</th>

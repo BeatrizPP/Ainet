@@ -75,10 +75,14 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Request Id <a href="{{ URL::route('listAllRequestsOrdered', '0')}}"> <i class="fa fa-arrow-down"></i></a> <a href="{{ URL::route('listAllRequestsOrdered', '1')}}"><i class="fa fa-arrow-up"></i></a></th>
-                                    <th>Status <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
-                                    <th>Due Date <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
-                                    <th>Owner <a href="#"><i class="fa fa-arrow-down"></i></a> <a href="#"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Request Id <a href="{{ URL::route('listAllRequestsOrdered', '0')}}"> <i class="fa fa-arrow-down"></i></a>
+                                        <a href="{{ URL::route('listAllRequestsOrdered', '1')}}"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Status <a href="{{ URL::route('listAllRequestsOrdered', '2')}}"> <i class="fa fa-arrow-down"></i></a>
+                                        <a href="{{ URL::route('listAllRequestsOrdered', '3')}}"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Due Date <a href="{{ URL::route('listAllRequestsOrdered', '4')}}"> <i class="fa fa-arrow-down"></i></a>
+                                        <a href="{{ URL::route('listAllRequestsOrdered', '5')}}"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Owner <a href="{{ URL::route('listAllRequestsOrdered', '6')}}"> <i class="fa fa-arrow-down"></i></a>
+                                        <a href="{{ URL::route('listAllRequestsOrdered', '7')}}"><i class="fa fa-arrow-up"></i></a></th>
                                     <th>+ Info</th>
                                 </tr>
                                 </thead>
