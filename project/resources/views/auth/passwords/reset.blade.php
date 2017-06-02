@@ -1,4 +1,4 @@
-@extends('master.app')
+@extends('layouts.master')
 
 @section('header')
     @include('layouts.partials._header', array('title'=>'Reset Password'))

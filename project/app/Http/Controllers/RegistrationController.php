@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -54,4 +54,4 @@ class RegistrationController extends Controller
 
         return redirect('/')->with('status','You are now verified');
     }
-}
+}*/

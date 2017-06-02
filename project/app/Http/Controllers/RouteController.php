@@ -25,7 +25,7 @@ class RouteController extends BaseController
     use ValidatesRequests;
 
     public function mainView(){
-/*        $totalPrints = User::sum('print_counts');
+        $totalPrints = User::sum('print_counts');
         $totalRequestsPrinted = PrintRequest::where('status', '=', '2')->count('colored');
         $totalRequestsColored = PrintRequest::where('status', '=', '2')->where('colored', true)->count('colored');
         if ($totalRequestsPrinted == 0) {
@@ -41,9 +41,8 @@ class RouteController extends BaseController
 
         $isDepSelected = false;  //no department selected*/
 
-        //return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected'));
+        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected'));
 
-        return view('empty');
     }
 
     public function mainViewByDepartment($depID) {

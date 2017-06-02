@@ -40,7 +40,7 @@
     @endif
     <p>Prints today:{{$today}}</p>
     <p>Prints this month:{{$month}}</p>
-    <p>List of contacts:
+{{--    <p>List of contacts:
     <table>
         <tr>
             <th>
@@ -85,6 +85,6 @@
             </tr>
         @endforeach
     </table>
-    </p>
+    </p>--}}
 
 @endsection

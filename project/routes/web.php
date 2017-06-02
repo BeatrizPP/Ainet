@@ -23,6 +23,12 @@ Route::get('/personal-profile', 'RouteController@editProfileView')->name('person
 
 Route::get('/request-description/{printRequest}', 'PrintRequestController@show')->name('requestDescription');
 
+Route::post('/request-description/{printRequestID}', 'CommentController@store')->name('comment.store');
+
+Route::post('/request-description/{printRequestID}/{parentCommentID}', 'CommentController@reply')->name('comment.reply');
+
+Route::get('/request-description/{printRequestID}/{commentID}', 'CommentController@switch')->name('comment.switch');
+
 Route::get('/personal-requests', 'PrintRequestController@currentUserIndex')->name('personalRequests');
 
 Route::get('/requests-admin', 'RouteController@requestsAdminView')->name('requestsAdmin')->middleware(['auth', 'admin']);
@@ -40,6 +46,14 @@ Route::get('/stats/{depID}', 'RouteController@mainViewByDepartment')->name('main
 Route::get('/register/verify/{token}', 'RegistrationController@verify');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/userBlock','UserController@block')->name('block');
+
+Route::post('/userAdmin','UserController@makeAdmin');
+
+Route::post('/approve','PrintRequestController@approve');
+
+Route::post('/deny','PrintRequestController@deny');
 
 Auth::routes();
 

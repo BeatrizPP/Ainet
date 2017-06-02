@@ -26,7 +26,7 @@ class PrintRequest extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class,'id','request_id');
+        return $this->hasMany(Comment::class,'request_id');
     }
 
     public function printer()

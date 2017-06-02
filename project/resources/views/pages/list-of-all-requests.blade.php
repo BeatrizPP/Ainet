@@ -94,7 +94,9 @@
                                     <td>{{ $request->id }}</td>
                                     <td>
                                         @if($request->status == 0)
-                                            pendent
+                                            pending
+                                        @elseif($request->status == 1)
+                                            refused
                                         @else
                                             completed
                                         @endif
@@ -102,6 +104,31 @@
                                     <td>{{ $request->due_date }}</td>
                                     <td>{{ $request->owner->name }}</td>
                                     <td><a href="/request-description/{{ $request->id }}">View Details</a></td>
+                                    @if(Auth::user()->isAdmin())
+                                        @if($request->status==0)
+                                            <td><form method="post" action="/approve">
+                                                    {{ csrf_field() }}
+                                                    <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $request->id }}">
+                                                    <div class="form-group">
+                                                        <label>Printer:</label>
+                                                        <select class="form-control">
+                                                            <option>------------------------</option>
+                                                            @foreach($printers as $printer)
+                                                                <option name="printer" value="{{ $printer -> id }}">{{ $printer -> name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" >Approve </button>
+                                                </form>
+                                            </td>
+                                            <td><form method="post" action="/deny">
+                                                    {{ csrf_field() }}
+                                                    <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $request->id }}">
+                                                    <input name="justification" type="text" placeholder="Reasons for denial">
+                                                    <button type="submit" >Deny </button>
+                                                </form>
+                                        @endif
+                                    @endif
                                 </tr>
 
                                 @endforeach

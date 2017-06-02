@@ -34,6 +34,41 @@ class UserController extends Controller
         return view('contacts', compact('users'));
     }
 
+    public function block(Request $request){
+        if(Auth::user()->isAdmin()){
+            $id=$request->input('hiddenId');
+            $user=User::find($id);
+            if($user->blocked==1){
+                $user->blocked=0;
+            }else{
+                $user->blocked=1;
+            }
+            $user->save();
+
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
+    }
+
+    public function makeAdmin(Request $request){
+        if(Auth::user()->isAdmin()){
+            $id=$request->input('hiddenId');
+            $user=User::find($id);
+            if($user->admin==1){
+                $user->admin=0;
+            }else{
+                $user->admin=1;
+            }
+            $user->save();
+
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
+
+    }
+
     public function create()
     {
         //

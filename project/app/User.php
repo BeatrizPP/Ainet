@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','department_id'
+        'name', 'email', 'password','department_id','remember_token','blocked','admin'
     ];
 
     /**
@@ -61,6 +61,15 @@ class User extends Authenticatable
         }else{
             return false;
         }// this looks for an admin column in your users table
+    }
+
+    public function isBlocked()
+    {
+        if($this->blocked==1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

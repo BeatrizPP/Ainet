@@ -30,9 +30,11 @@
                                         <td>{{ $request->id }}</td>
                                         <td>
                                             @if($request->status == 0)
-                                                pendent
+                                                pending
+                                            @elseif($request->status == 1)
+                                                refused
                                             @else
-                                                completed
+                                                closed
                                             @endif
                                         </td>
                                         <td>{{ $request->due_date }}</td>

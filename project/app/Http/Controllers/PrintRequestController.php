@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Printer;
 use App\PrintRequest;
 use App\User;
 use Illuminate\Http\Request;
@@ -23,7 +24,8 @@ class PrintRequestController extends Controller
             $printRequests = PrintRequest::paginate(20);
             $departments = Department::all();
             $users = User::all();
-            return view('list-of-all-requests', compact('printRequests','departments','users'));
+            $printers = Printer::all();
+            return view('list-of-all-requests', compact('printRequests','departments','users','printers'));
         } else {
             return redirect()->route('main');
         }
@@ -66,7 +68,8 @@ class PrintRequestController extends Controller
             }
             $departments = Department::all();
             $users = User::all();
-            return view('list-of-all-requests', compact('printRequests','departments','users'));
+            $printers = Printer::all();
+            return view('list-of-all-requests', compact('printRequests','departments','users','printers'));
         } else {
             return redirect()->route('main');
         }
@@ -85,6 +88,33 @@ class PrintRequestController extends Controller
     public function show(PrintRequest $printRequest)
     {
         return view('request-description', compact('printRequest'));
+    }
+
+
+    public function approve(Request $request){
+        if(Auth::user()->isAdmin()){
+            $id=$request->input('hiddenId');
+            $printRequest=PrintRequest::find($id);
+            $printRequest->status=2;
+            $printRequest->printer_id=$request->input('printer');
+            $printRequest->save();
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
+    }
+
+    public function deny(Request $request){
+        if(Auth::user()->isAdmin()){
+            $id=$request->input('hiddenId');
+            $printRequest=PrintRequest::find($id);
+            $printRequest->status=1;
+            $printRequest->refused_reason=$request->input('justification');
+            $printRequest->save();
+            return redirect()->back();
+        }else{
+            return redirect()->back();
+        }
     }
 
 

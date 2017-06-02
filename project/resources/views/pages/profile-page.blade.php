@@ -56,6 +56,42 @@
     {{--        @else
                 <img src="/profiles/no-profile-image.jpg" style="width:60px; height: 60px;">--}}
             @endif
+                @if(Auth::check() && Auth::user()->isAdmin())
+                    @if(!$user->isBlocked())
+                        <form method="post" action="/userBlock">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" type="hidden" name="hiddenId" value="{{ $user->id }}">
+                            <button type="submit" >Block User </button>
+                        </form>
+                    @endif
+                    @if($user->isBlocked())
+                        <form method="post" action="/userBlock">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" type="hidden" name="hiddenId" value="{{ $user->id }}">
+                            <button type="submit" >Unblock User </button>
+                        </form>
+                    @endif
+                    @if(!$user->isAdmin())
+                        <form method="post" action="/userAdmin">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
+                            <button type="submit" >Make Admin </button>
+                        </form>
+                    @endif
+                    @if($user->isAdmin())
+                        <form method="post" action="/userAdmin">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
+                            <button type="submit" >Remove admin</button>
+                        </form>
+                    @endif
+                @endif
+                @if($user->isBlocked())
+                    <div class="alert"> This user is blocked</div>
+                @endif
+                @if($user->isAdmin())
+                    <div class="alert"> This user is an admin</div>
+                @endif
         </div>
     </div>
 
