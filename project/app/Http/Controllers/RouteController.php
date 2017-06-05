@@ -19,12 +19,14 @@ use App\PrintRequest;
 use App\Department;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordReset;
+use Illuminate\Support\Facades\DB;
 
 class RouteController extends BaseController
 {
     use ValidatesRequests;
 
     public function mainView(){
+
         $totalPrints = User::sum('print_counts');
         $totalRequestsPrinted = PrintRequest::where('status', '=', '2')->count('colored');
         $totalRequestsColored = PrintRequest::where('status', '=', '2')->where('colored', true)->count('colored');
@@ -38,6 +40,55 @@ class RouteController extends BaseController
         $today = PrintRequest::where('status', '=', '2')->whereDay('closed_date', date('d')) ->count();
         $month = PrintRequest::where('status', '=', '2')->whereMonth('closed_date', date('m')) ->count();
         $contacts = User::get();
+        /*$printsPerUser = PrintRequest::select(DB::raw('requests.sum(quantity) as sum, requests.owner_id'))
+                            //->where('status', '=', '2')
+                            ->groupby('owner_id')
+                            ->Leftjoin(DB::raw('(select id, department_id from users) as users'), 'users.id', '=', 'requests.owner_id')
+                            //->get();
+                            ->pluck('sum','owner_id','users.department_id');
+//        $printsPerDepartment = PrintRequest::select(DB::raw('requests.*'))
+//            ->join(DB::raw('(select id,department_id from users) as users'), 'users.id', '=', 'requests.owner_id')
+//            ->where('status', '=', '2')
+//            ->pluck('requests.id','department_id');
+            //->groupby('department_id')
+            //->selectRaw('sum(quantity) as sum, department_id')
+            //->pluck('sum','department_id');
+
+        dd($printsPerUser);
+
+        $totalRequestsPrinted = PrintRequest::where('status', '=', '2')->sum('quantity');
+        $print_counts = User::sum('print_counts');
+        $colorRequestsPrinted = PrintRequest::where('status', '=', '2')->where('colored', '=','1')->sum('quantity');
+        $blackRequestsPrinted = PrintRequest::where('status', '=', '2')->where('colored', '=',0)->sum('quantity');
+
+
+
+        if ($totalRequestsPrinted == 0) {
+            $percentageColored = 0;
+        } else {
+            $percentageColored = ($colorRequestsPrinted * 100)/ $totalRequestsPrinted;
+        }
+
+        $departments = Department::get();
+
+
+
+/*            ->leftJoin(DB::raw('(select id,name from users) as users'), 'users.id', '=', 'requests.owner_id')
+            ->orderBy('name', 'asc')
+            ->paginate(20);
+
+        $printRequests = PrintRequest::select(DB::raw('requests.*'))
+            ->leftJoin(DB::raw('(select id,name from users) as users'), 'users.id', '=', 'requests.owner_id')
+            ->orderBy('name', 'asc')
+            ->paginate(20);*/
+
+        /*$printsPerDepartment = User::selectRaw('sum(print_counts) as sum, department_id')->groupby('department_id')->get();
+
+        $printsPerDepartment = User::selectRaw('sum(print_counts) as sum, department_id')->groupby('department_id')->get();
+
+        $today = PrintRequest::where('status', '=', '2')->whereDay('closed_date', date('d')) ->count();
+        $month = PrintRequest::where('status', '=', '2')->whereMonth('closed_date', date('m')) ->count();*/
+
 
         $isDepSelected = false;  //no department selected*/
 
@@ -68,6 +119,7 @@ class RouteController extends BaseController
         }
 
         $department1 = $departments->find($depID);
+        $depName = $department1->name;
         $requests = $department1->printRequests;
         $depTotalCounter =0;
         $depColoredCounter = 0;

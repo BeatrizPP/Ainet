@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth')->except(['index','indexOrdered', 'show']);
     }
 
     public function index()
@@ -86,12 +88,43 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        //
+        $departments = Department::all();
+        return view('edit-profile', compact('user','departments'));
     }
 
     public function update(Request $request, User $user)
     {
-        //
+        $id=$request->input('hiddenId');
+        $user=User::find($id);
+
+        $this->validate(request(), [
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'department' => 'required'
+
+        ]);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->presentation = $request->input('presentation');
+        if($request->input('password') != null){
+            $user->password = $request->input('password');
+        }
+        $user->department_id = (int) $request->input('department');
+
+        if($request->hasFile('avatar')){
+            $profile = $request->file('avatar');
+            $filename = time() . '.' . $profile->getClientOriginalExtension();
+            Image::make($profile)->resize(300, 300)->save(public_path('profiles/' . $filename));
+            //$profile->move('profiles', $profile->getClientOriginalName());
+            $user->profile_photo = $filename;
+        }
+
+        $user->profile_url = $request->input('profile_url');
+        $user->save();
+        return view('profile-page', compact('user'));
+
     }
 
     public function destroy(User $user)

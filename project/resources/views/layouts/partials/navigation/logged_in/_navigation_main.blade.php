@@ -9,9 +9,6 @@
                 <a href="{{ route('personalRequests') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
-                <a href="{{ route('listAllRequests') }}"><i class="fa fa-list-ul" aria-hidden="true"></i> Print Requests</a>
-            </li>
-            <li>
                 <a href="{{ route('contacts') }}"><i class="fa fa-users" aria-hidden="true"></i> Contacts</a>
             </li>
 

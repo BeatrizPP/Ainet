@@ -12,24 +12,29 @@
                     <div data-toggle="collapse" data-target="#request-filters">
                         <h4>Filter by: <i class="fa fa-fw fa-caret-down" style="float: right"></i></h4>
                     </div>
-                    <form method="GET" action="#">
-
+                    <form method="post" action="/filter">
+                        {{ csrf_field() }}
                         <div id="request-filters" class="collapse">
 
                             <div class="form-group">
                                 <label>Status:</label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInlinePendent" value="pendent">Pendent
+                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInlinePendent" value="0">Pendent
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInlineCompleted" value="completed">Completed
+                                    <input type="radio" name="optionsRadiosInline" id="optionsRadiosInlineCompleted" value="2">Completed
                                 </label>
+                                @if(Auth::check() && Auth::user()->isAdmin())
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optionsRadiosInline" id="optionsRadiosInlinePendent" value="1">Refused
+                                    </label>
+                                @endif
                             </div>
 
                             <div class="form-group">
                                 <label>Owner:</label>
-                                <select class="form-control">
-                                    <option>------------------------</option>
+                                <select name="ownerName">
+                                    <option value="null">------------------------</option>
                                     @foreach($users as $user)
                                         <option value="{{ $user -> id }}">{{ $user -> name }}</option>
                                     @endforeach
@@ -40,7 +45,7 @@
                                 <label>Department:</label>
                                 <select multiple class="form-control">
                                     @foreach($departments as $department)
-                                        <option value="{{ $department -> id }}">{{ $department -> name }}</option>
+                                        <option name="department" value="{{ $department -> id }}">{{ $department -> name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -53,7 +58,7 @@
 
                             <div class="form-group">
                                 <label>Expression:</label>
-                                <input type="text" name="name">
+                                <input type="text" name="expression">
                             </div>
 
                             <div class="form-group">
@@ -83,6 +88,7 @@
                                         <a href="{{ URL::route('listAllRequestsOrdered', '5')}}"><i class="fa fa-arrow-up"></i></a></th>
                                     <th>Owner <a href="{{ URL::route('listAllRequestsOrdered', '6')}}"> <i class="fa fa-arrow-down"></i></a>
                                         <a href="{{ URL::route('listAllRequestsOrdered', '7')}}"><i class="fa fa-arrow-up"></i></a></th>
+                                    <th>Description</th>
                                     <th>+ Info</th>
                                 </tr>
                                 </thead>
@@ -103,32 +109,8 @@
                                     </td>
                                     <td>{{ $request->due_date }}</td>
                                     <td>{{ $request->owner->name }}</td>
+                                    <td>{{ substr($request->description,0,45) }}...</td>
                                     <td><a href="/request-description/{{ $request->id }}">View Details</a></td>
-                                    @if(Auth::user()->isAdmin())
-                                        @if($request->status==0)
-                                            <td><form method="post" action="/approve">
-                                                    {{ csrf_field() }}
-                                                    <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $request->id }}">
-                                                    <div class="form-group">
-                                                        <label>Printer:</label>
-                                                        <select class="form-control">
-                                                            <option>------------------------</option>
-                                                            @foreach($printers as $printer)
-                                                                <option name="printer" value="{{ $printer -> id }}">{{ $printer -> name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" >Approve </button>
-                                                </form>
-                                            </td>
-                                            <td><form method="post" action="/deny">
-                                                    {{ csrf_field() }}
-                                                    <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $request->id }}">
-                                                    <input name="justification" type="text" placeholder="Reasons for denial">
-                                                    <button type="submit" >Deny </button>
-                                                </form>
-                                        @endif
-                                    @endif
                                 </tr>
 
                                 @endforeach
@@ -139,31 +121,6 @@
                         <div class="pagination"> {{ $printRequests->links() }} </div>
                     </div>
                 </div>
-
-
-{{--    <ul>
-        @foreach($requests as $request)
-
-            <li> Id: {{ $request->id }}
-
-                <ul>
-                    <li> Status:
-
-                        @if($request->status == 0)
-                            pendent
-                        @else
-                            completed
-                        @endif
-                    </li>
-
-                    <li>Due date: {{ $request->due_date }}</li>
-
-                </ul>
-
-            </li>
-
-        @endforeach
-     </ul>--}}
 
 
 @endsection

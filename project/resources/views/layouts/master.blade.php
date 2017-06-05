@@ -20,13 +20,21 @@
     <!-- Custom CSS -->
     <link href="http://project.ainet/css/sb-admin.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="http://project.ainet/css/plugins/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="http://project.ainet/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- links to fonts?-->
+    <!-- Morris Charts CSS -->
+    <link href="http://project.ainet/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="http://project.ainet/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://project.ainet/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="http://project.ainet/js/plugins/morris/raphael.min.js"></script>
+    <script src="http://project.ainet/js/plugins/morris/morris.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,18 +57,32 @@
 
         <!-- side bar navigation -->
         @if(Auth::check())
-            @if(Request::url() === route('personalRequests'))
-                @include('layouts.partials.navigation.logged_in._navigation_personal_requests')
-            @elseif(Request::url() === route('listAllRequests'))
-                @include('layouts.partials.navigation.logged_in._navigation_list_all_requests')
-            @elseif(Request::url() === route('contacts'))
-                @include('layouts.partials.navigation.logged_in._navigation_contacts')
-            @elseif(Request::url() === route('main'))
-                @include('layouts.partials.navigation.logged_in._navigation_main')
-            @elseif(Request::url() === route('requestCreate'))
-                @include('layouts.partials.navigation.logged_in._navigation_create_request')
+            @if(Auth::user()->isAdmin())
+                @if(Request::url() === route('personalRequests'))
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_personal_requests')
+                @elseif(Request::url() === route('listAllRequests'))
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_list_all_requests')
+                @elseif(Request::url() === route('contacts'))
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_contacts')
+                @elseif(Request::url() === route('main'))
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_main')
+                @elseif(Request::url() === route('requestCreate'))
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_create_request')
+                @else
+                    @include('layouts.partials.navigation.logged_in.admin._navigation_logged_in')
+                @endif
             @else
-                @include('layouts.partials.navigation.logged_in._navigation_logged_in')
+                @if(Request::url() === route('personalRequests'))
+                    @include('layouts.partials.navigation.logged_in._navigation_personal_requests')
+                @elseif(Request::url() === route('contacts'))
+                    @include('layouts.partials.navigation.logged_in._navigation_contacts')
+                @elseif(Request::url() === route('main'))
+                    @include('layouts.partials.navigation.logged_in._navigation_main')
+                @elseif(Request::url() === route('requestCreate'))
+                    @include('layouts.partials.navigation.logged_in._navigation_create_request')
+                @else
+                    @include('layouts.partials.navigation.logged_in._navigation_logged_in')
+                @endif
             @endif
         @else
             @if(Request::url() === route('main'))
@@ -79,4 +101,7 @@
         @include('layouts.partials._footer')
 
     </body>
+
+    @yield('graphs')
+
 </html>

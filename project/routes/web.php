@@ -19,6 +19,10 @@ Route::get('/contacts/{orderCode}', 'UserController@indexOrdered')->name('contac
 
 Route::get('/profile-page/{user}', 'UserController@show')->name('profilePage');
 
+Route::get('/edit-profile/{user}', 'UserController@edit')->name('editUser');
+
+Route::post('/edit-profile', 'UserController@update')->name('updateUser');
+
 Route::get('/personal-profile', 'RouteController@editProfileView')->name('personalProfile');
 
 Route::get('/request-description/{printRequest}', 'PrintRequestController@show')->name('requestDescription');
@@ -28,6 +32,10 @@ Route::post('/request-description/{printRequestID}', 'CommentController@store')-
 Route::post('/request-description/{printRequestID}/{parentCommentID}', 'CommentController@reply')->name('comment.reply');
 
 Route::get('/request-description/{printRequestID}/{commentID}', 'CommentController@switch')->name('comment.switch');
+
+Route::get('/request-edit/{printRequest}', 'PrintRequestController@edit')->name('editRequest');
+
+Route::post('/request-edit', 'PrintRequestController@update')->name('updateRequest');
 
 Route::get('/personal-requests', 'PrintRequestController@currentUserIndex')->name('personalRequests');
 
@@ -43,9 +51,9 @@ Route::get('/list-all-requests/{orderCode}', 'PrintRequestController@indexOrdere
 
 Route::get('/stats/{depID}', 'RouteController@mainViewByDepartment')->name('mainByDepartment');
 
-Route::get('/register/verify/{token}', 'RegistrationController@verify');
+Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'RouteController@mainView')->name('home');
 
 Route::post('/userBlock','UserController@block')->name('block');
 
@@ -54,6 +62,8 @@ Route::post('/userAdmin','UserController@makeAdmin');
 Route::post('/approve','PrintRequestController@approve');
 
 Route::post('/deny','PrintRequestController@deny');
+
+Route::post('/filter','PrintRequestController@filter');
 
 Auth::routes();
 

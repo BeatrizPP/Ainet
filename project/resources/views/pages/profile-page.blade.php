@@ -49,49 +49,79 @@
                 </div>
             @endif
         </div>
-        <div class="col-lg-1"></div>
-        <div class="col-lg-3">
-            @if($user->profile_photo != null)
-                <img class="img-thumbnail" src="/profiles/{{ $user->profile_photo }}" alt="">
-    {{--        @else
-                <img src="/profiles/no-profile-image.jpg" style="width:60px; height: 60px;">--}}
+        <div class="col-lg-4 text-center">
+            <div class="row">
+                @if($user->profile_photo != null)
+                    <img class="img-thumbnail" src="/profiles/{{$user->profile_photo}}" style="width:150px; height: 150px;">
+                @else
+                    <img class="img-thumbnail" src="/profiles/no-profile-image.jpg" style="width:150px; height: 150px;">
+                @endif
+            </div>
+            <br>
+
+            @if($user->isBlocked())
+                <div class="row">
+                    <b>This user is blocked!</b>
+                </div>
+                <br>
             @endif
-                @if(Auth::check() && Auth::user()->isAdmin())
-                    @if(!$user->isBlocked())
+            @if($user->isAdmin())
+                <div class="row">
+                    <b> This user is an admin </b>
+                </div>
+                <br>
+            @endif
+
+            @if(Auth::check() && $user->id == Auth::user()->id)
+                <div class="row">
+                    <a href ="{{ route('editUser', ['user' => $user]) }}">
+                        <button type="submit" class="btn btn-default" style="width: 180px">Edit My Profile</button>
+                    </a>
+                </div>
+                <br>
+            @endif
+            @if(Auth::check() && Auth::user()->isAdmin())
+                @if(!$user->isBlocked())
+                    <div class="row">
                         <form method="post" action="/userBlock">
                             {{ csrf_field() }}
                             <input  id="hiddenId" type="hidden" name="hiddenId" value="{{ $user->id }}">
-                            <button type="submit" >Block User </button>
+                            <button type="submit" class="btn btn-default" style="width: 180px">Block User </button>
                         </form>
-                    @endif
-                    @if($user->isBlocked())
-                        <form method="post" action="/userBlock">
-                            {{ csrf_field() }}
-                            <input  id="hiddenId" type="hidden" name="hiddenId" value="{{ $user->id }}">
-                            <button type="submit" >Unblock User </button>
-                        </form>
-                    @endif
-                    @if(!$user->isAdmin())
-                        <form method="post" action="/userAdmin">
-                            {{ csrf_field() }}
-                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
-                            <button type="submit" >Make Admin </button>
-                        </form>
-                    @endif
-                    @if($user->isAdmin())
-                        <form method="post" action="/userAdmin">
-                            {{ csrf_field() }}
-                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
-                            <button type="submit" >Remove admin</button>
-                        </form>
-                    @endif
+                    </div>
+                    <br>
                 @endif
                 @if($user->isBlocked())
-                    <div class="alert"> This user is blocked</div>
+                    <div class="row">
+                        <form method="post" action="/userBlock">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" type="hidden" name="hiddenId" value="{{ $user->id }}">
+                            <button type="submit" class="btn btn-default" style="width: 180px">Unblock User </button>
+                        </form>
+                    </div>
+                    <br>
+                @endif
+                @if(!$user->isAdmin())
+                    <div class="row">
+                        <form method="post" action="/userAdmin">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
+                            <button type="submit" class="btn btn-default" style="width: 180px">Make Admin </button>
+                        </form>
+                    </div>
+                    <br>
                 @endif
                 @if($user->isAdmin())
-                    <div class="alert"> This user is an admin</div>
+                    <div class="row">
+                        <form method="post" action="/userAdmin">
+                            {{ csrf_field() }}
+                            <input  id="hiddenId" name="hiddenId" type="hidden" value="{{ $user->id }}">
+                            <button type="submit" class="btn btn-default" style="width: 180px">Remove admin</button>
+                        </form>
+                    </div>
+                    <br>
                 @endif
+            @endif
         </div>
     </div>
 

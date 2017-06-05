@@ -25,4 +25,21 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class,'id','parent_id');
     }
+
+    public function hasBlockedParent(){
+        $comment = $this;  //actual comment
+        while(true){
+            //dd($comment->parent);
+            if ($comment->parent != null) {
+                if($comment->parent->blocked == 1){ //verify if the parent is blocked
+                    return true;
+                }else{
+                    $comment = $comment->parent;  //to continue to verify next parent in the tree
+                }
+            }else{
+                break;
+            }
+        }
+        return false;
+    }
 }

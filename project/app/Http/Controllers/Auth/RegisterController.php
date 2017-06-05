@@ -80,7 +80,6 @@ class RegisterController extends Controller
 
         User::where('remember_token',$token)->firstOrFail()->verified();
 
-
-        return redirect('/')->with('status','You are now verified');
+        return redirect('/')->with('status','You are now verified!');
     }
 }
