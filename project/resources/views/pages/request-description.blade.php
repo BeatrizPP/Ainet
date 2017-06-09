@@ -142,12 +142,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4"></div>
-            <div class="col-lg-2">
-                <br>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default"> Submit </button>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default" style="float: right"> Submit </button>
+                    </div>
                 </div>
+                <div class="col-lg-6">
             </div>
         </form>
         @include('layouts.partials.errors')
@@ -191,11 +192,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-2">
-                                                <br>
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-default"> Submit </button>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-default" style="float: right"> Submit </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -241,13 +242,15 @@
                                                             <textarea class="form-control" rows="4" id="reply" name="comment" required></textarea>
                                                         </div>
                                                     </div>
+                                                    <div class="col-lg-6"></div>
                                                 </div>
-                                                <div class="col-lg-4"></div>
-                                                <div class="col-lg-2">
-                                                    <br>
-                                                    <div class="form-group">
-                                                        <button type="submit" class="btn btn-default"> Submit </button>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-default" style="float: right"> Submit </button>
+                                                        </div>
                                                     </div>
+                                                    <div class="col-lg-6"></div>
                                                 </div>
                                             </form>
                                             @include('layouts.partials.errors')
