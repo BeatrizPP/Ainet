@@ -40,6 +40,7 @@ class RouteController extends BaseController
         $today = PrintRequest::where('status', '=', '2')->whereDay('closed_date', date('d')) ->count();
         $month = PrintRequest::where('status', '=', '2')->whereMonth('closed_date', date('m')) ->count();
         $contacts = User::get();
+        $monthAvg = round($month / date('d'));
         /*$printsPerUser = PrintRequest::select(DB::raw('requests.sum(quantity) as sum, requests.owner_id'))
                             //->where('status', '=', '2')
                             ->groupby('owner_id')
@@ -92,7 +93,7 @@ class RouteController extends BaseController
 
         $isDepSelected = false;  //no department selected*/
 
-        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected'));
+        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'isDepSelected','monthAvg'));
 
     }
 
@@ -110,6 +111,7 @@ class RouteController extends BaseController
         $today = PrintRequest::where('status', '=', '2')->whereDay('closed_date', date('d')) ->count();
         $month = PrintRequest::where('status', '=', '2')->whereMonth('closed_date', date('m')) ->count();
         $contacts = User::get();
+        $monthAvg = $month / date('d');
 
         // for the departments
         $departmentStatistics = User::get()->where('department_id', '=', $depID);
@@ -151,7 +153,7 @@ class RouteController extends BaseController
         }
 
         $isDepSelected = true;  //$depID is the selected department's id
-        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'depName', 'sumPrintsPerDepartment', 'percColoredByDepartment', 'depToday', 'depMonth', 'isDepSelected'));
+        return view('main', compact('totalPrints', 'percentageColored', 'departments', 'printsPerDepartment', 'today', 'month', 'contacts', 'depName', 'sumPrintsPerDepartment', 'percColoredByDepartment', 'depToday', 'depMonth', 'isDepSelected','monthAvg'));
     }
 
     public function editProfileView(){

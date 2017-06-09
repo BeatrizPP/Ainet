@@ -71,7 +71,7 @@
                             <i class="fa fa-line-chart fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{$month}}</div>
+                            <div class="huge">{{$monthAvg}}</div>
                             <div>Average prints<br>per day this month:</div>
                         </div>
                     </div>
@@ -138,31 +138,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <table>
-            @foreach ($departments as $department)
-                <tr>
-                    <td>
-                        <a href="{{ URL::route('mainByDepartment', $department->id) }}">{{$department->name}}</a>
-                    </td>
-                <?php   $hasUsers = false;  ?>  <!--(FIXED) if the user list doesn't have a department he doesn't write-->
-                    @foreach ($printsPerDepartment as $prints)
-                        @if ($prints->department_id == $department->id)
-                            <td>
-                                {{$prints->sum}}
-                                <?php   $hasUsers = true; ?>
-                            </td>
-                        @endif
-                    @endforeach
-                    @if (!$hasUsers)
-                        <td> 0 </td>
-                        <?php   $hasUsers = false;  ?>
-                    @endif
-                </tr>
-            @endforeach
-        </table>
-        </p>
-    </div>
 
 @endsection
 
@@ -219,5 +194,3 @@
         });
     </script>
 @endsection
-
-
